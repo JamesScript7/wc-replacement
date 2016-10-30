@@ -1,21 +1,20 @@
 //word count format:
 //newline	word	byte filename.js
 
-var fs = require("fs");
-var fn = require("./lib/script");
+var fs = require("fs"),
+	fn = require("./lib/script"),
+	target = "./lib/script.js";
 
-
-fs.readFile("./lib/script.js", "utf-8", function(err,data) {
+fs.readFile(target, "utf-8", function(err,data) {
 	if(err) {
 		console.log(err.toString());
 		return;
 	} else {
 		var lines = fn.lineCount(data),
-			words = fn.wordCount(data),
+			words = fn.charCount(data),
 			bytes = fn.byteCount(data),
-			//not sure how to grab the file name as param?
-			fileName = "script.js"
+			targetFile = target.split("/")[2];
 			
-		console.log("\t" + lines + "\t" + words + "\t" + bytes + " " + fileName);
+		console.log("\t" + lines + "\t" + words + "\t" + bytes + " " + targetFile);
 	}
 });
